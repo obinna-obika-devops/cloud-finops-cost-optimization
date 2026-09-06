@@ -1,0 +1,4 @@
+resource_id,service,team,environment,monthly_cost_usd,avg_cpu_percent,avg_memory_percent,status
+prod-api-01,EC2,checkout,prod,210,11,42,candidate
+prod-worker-02,EC2,platform,prod,180,9,31,candidate
+prod-db-01,RDS,platform,prod,420,47,68,retain

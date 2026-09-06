@@ -1,0 +1,10 @@
+budget:
+  monthly_usd: 5000
+  warning_percent: 80
+  critical_percent: 100
+allocation:
+  required_tags: [Environment, Team, CostCenter, Application, Owner]
+optimization:
+  idle_ec2_monthly_usd: 50
+  utilization_cpu_percent: 15
+  rightsizing_review_days: 14

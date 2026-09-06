@@ -1,0 +1,29 @@
+name: FinOps CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r requirements.txt
+      - run: python -m pytest -q
+      - run: python scripts/finops_gate.py
+      - run: python -m finops.cli analyze data/sample/cost_usage.csv --output reports/demo-report.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: finops-report
+          path: reports/demo-report.md
+  terraform:
+    runs-on: ubuntu-latest
+    defaults: {run: {working-directory: terraform}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform fmt -check
+      - run: terraform init -backend=false
+      - run: terraform validate
